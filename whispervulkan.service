@@ -1,0 +1,14 @@
+[Unit]
+Description=whispervulkan — system-wide Whisper STT daemon (Vulkan, large-v3-turbo, VRAM-warm)
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/programming/whispervulkan/whispervulkan.sh
+Restart=on-failure
+RestartSec=2
+# Keep the model warm in VRAM all session (the 4090 has the headroom). For idle-unload
+# instead, switch to socket activation / add an idle timeout in the launcher.
+
+[Install]
+WantedBy=default.target

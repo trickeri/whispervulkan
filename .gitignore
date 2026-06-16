@@ -1,0 +1,8 @@
+# Machine-specific config (paths). Ship config.env.example instead.
+config.env
+
+# whispervulkan reuses the sibling whisper.cpp checkout for the binary + model;
+# nothing heavy lives in this repo. Ignore any local copies if someone drops them here.
+/models/
+/bin/
+/whisper.cpp/
