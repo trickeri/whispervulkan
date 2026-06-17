@@ -1,13 +1,15 @@
 [Unit]
-Description=whispervulkan — system-wide Whisper STT daemon (Vulkan, large-v3-turbo, VRAM-warm)
+Description=whispervulkan — system-wide Whisper STT daemon (whisper.cpp)
 After=graphical-session.target
 
 [Service]
 Type=simple
+# Assumes the repo lives at ~/programming/whispervulkan. If you cloned it elsewhere,
+# edit this path (or symlink the repo there).
 ExecStart=%h/programming/whispervulkan/whispervulkan.sh
 Restart=on-failure
 RestartSec=2
-# Keep the model warm in VRAM all session (the 4090 has the headroom). For idle-unload
+# The model stays loaded for the whole session so transcription is instant. For idle-unload
 # instead, switch to socket activation / add an idle timeout in the launcher.
 
 [Install]
