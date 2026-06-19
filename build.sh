@@ -3,8 +3,9 @@
 # checkout (auto-cloned if missing).
 #
 # Usage:
-#   ./build.sh           # GPU (Vulkan) backend  [default]
+#   ./build.sh           # GPU (Vulkan) backend  [default] — vendor-agnostic
 #   ./build.sh gpu       # same
+#   ./build.sh cuda      # NVIDIA CUDA backend (ggml-cuda; needs the CUDA toolkit)
 #   ./build.sh cpu       # CPU-only backend (no Vulkan / SPIRV-Headers needed)
 #
 # GPU builds need the system Vulkan toolchain (loader + headers + a shader compiler).
@@ -40,11 +41,16 @@ case "$BACKEND" in
     CMAKE_ARGS+=(-DGGML_VULKAN=1 -DSPIRV-Headers_DIR="$SPIRV_DIR")
     echo "Building whisper-server with the Vulkan (GPU) backend." >&2
     ;;
+  cuda)
+    # NVIDIA-only, via ggml's CUDA backend. Needs the CUDA toolkit (nvcc) on PATH.
+    CMAKE_ARGS+=(-DGGML_CUDA=1)
+    echo "Building whisper-server with the CUDA (NVIDIA) backend." >&2
+    ;;
   cpu)
     echo "Building whisper-server with the CPU backend (no GPU)." >&2
     ;;
   *)
-    echo "Unknown backend '$BACKEND' — use 'gpu' or 'cpu'." >&2
+    echo "Unknown backend '$BACKEND' — use 'gpu' (vulkan), 'cuda', or 'cpu'." >&2
     exit 1
     ;;
 esac
