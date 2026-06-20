@@ -4,9 +4,9 @@ After=graphical-session.target
 
 [Service]
 Type=simple
-# Assumes the repo lives at ~/programming/whispermodel. If you cloned it elsewhere,
-# edit this path (or symlink the repo there).
-ExecStart=%h/programming/whispermodel/whispermodel.sh
+# Assumes the repo lives at ~/programming/Models/whispermodel. If you cloned it
+# elsewhere, edit this path (or symlink the repo there).
+ExecStart=%h/programming/Models/whispermodel/whispermodel.sh
 Restart=on-failure
 RestartSec=2
 # The model stays loaded for the whole session so transcription is instant. For idle-unload
